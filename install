@@ -11,7 +11,7 @@ if [ -n "${ZSH_VERSION:-}" ]; then
   emulate sh -o err_exit -o no_unset
 fi
 
-readonly url_base=https://github.com/romkatv/zsh-bin/releases/download/v6.1.1
+readonly url_base=https://proxy.melonhu.cn/https://github.com/romkatv/zsh-bin/releases/download/v6.1.1
 
 readonly archives='
 file:zsh-5.8-cygwin_nt-10.0-i686.tar.gz;   md5:a34f196174a41d6e0c72e4afbec51f1e; sha256:036d13c17ac8228c771bcfae015bc3a79e2adddeb6fefd84f6a4222e4961be5c;

@@ -81,16 +81,16 @@ kakoune_version=2020.09.01
 foot_version=1.7
 zsh_doc_version=5.0.1
 
-ncurses_url=https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$ncurses_version.tar.gz
-kitty_url=https://raw.githubusercontent.com/kovidgoyal/kitty/v$kitty_version/terminfo/kitty.terminfo
-termite_url=https://raw.githubusercontent.com/thestinger/termite/v$termite_version/termite.terminfo
-kakoune_url=https://raw.githubusercontent.com/mawww/kakoune/v$kakoune_version/contrib/tmux-256color.terminfo
-foot_url=https://codeberg.org/dnkl/foot/raw/branch/releases/$foot_version/foot.info
-libiconv_url=https://ftp.gnu.org/pub/gnu/libiconv/libiconv-$libiconv_version.tar.gz
-icmake_url=https://gitlab.com/fbb-git/icmake/-/archive/$icmake_version/icmake-$icmake_version.tar.gz
-yodl_url=https://gitlab.com/fbb-git/yodl/-/archive/$yodl_version/yodl-$yodl_version.tar.gz
-zsh_url=https://github.com/zsh-users/zsh/archive/zsh-5.8.tar.gz
-zsh_doc_url=https://github.com/romkatv/zsh-bin/releases/download/v$zsh_doc_version/zsh-5.8-linux-x86_64.tar.gz
+ncurses_url=https://proxy.melonhu.cn/https://ftp.gnu.org/pub/gnu/ncurses/ncurses-$ncurses_version.tar.gz
+kitty_url=https://proxy.melonhu.cn/https://raw.githubusercontent.com/kovidgoyal/kitty/v$kitty_version/terminfo/kitty.terminfo
+termite_url=https://proxy.melonhu.cn/https://raw.githubusercontent.com/thestinger/termite/v$termite_version/termite.terminfo
+kakoune_url=https://proxy.melonhu.cn/https://raw.githubusercontent.com/mawww/kakoune/v$kakoune_version/contrib/tmux-256color.terminfo
+foot_url=https://proxy.melonhu.cn/https://codeberg.org/dnkl/foot/raw/branch/releases/$foot_version/foot.info
+libiconv_url=https://proxy.melonhu.cn/https://ftp.gnu.org/pub/gnu/libiconv/libiconv-$libiconv_version.tar.gz
+icmake_url=https://proxy.melonhu.cn/https://gitlab.com/fbb-git/icmake/-/archive/$icmake_version/icmake-$icmake_version.tar.gz
+yodl_url=https://proxy.melonhu.cn/https://gitlab.com/fbb-git/yodl/-/archive/$yodl_version/yodl-$yodl_version.tar.gz
+zsh_url=https://proxy.melonhu.cn/https://github.com/zsh-users/zsh/archive/zsh-5.8.tar.gz
+zsh_doc_url=https://proxy.melonhu.cn/https://github.com/romkatv/zsh-bin/releases/download/v$zsh_doc_version/zsh-5.8-linux-x86_64.tar.gz
 
 ncurses_sha256=30306e0c76e0f9f1f0de987cf1c82a5c21e1ce6568b9227f7da5b71cbea86c9d
 kitty_sha256=bdcac2c8cbae7bf2e2843e500ded9f550a6a8b3e66a14565b0156d8301dfc6aa
@@ -427,7 +427,7 @@ patch -u configure.ac <<-\END
 	 #include <stdio.h>
 	 #include <sys/resource.h>
 	+#include <stdlib.h>
-	 main() { 
+	 main() {
 	   struct rlimit r;
 	   char buf[20];
 	@@ -1887,6 +1897,7 @@
@@ -633,18 +633,18 @@ patch -u Src/init.c <<-\END
 	@@ -869,6 +869,10 @@
 	     return 1;
 	 }
-	 
+
 	+#if defined(__APPLE__)
 	+static void init_paths_from_exe_path(void);
 	+#endif
 	+
 	 /* Initialize lots of global variables and hash tables */
-	 
+
 	 /**/
 	@@ -905,6 +909,10 @@
 	 #endif
 	     int close_fds[10], tmppipe[2];
-	 
+
 	+#if defined(__APPLE__)
 	+  init_paths_from_exe_path();
 	+#endif
@@ -685,7 +685,7 @@ cat >>Src/init.c <<-\END
 	    environ[ev_len] = patched;
 	    environ[ev_len + 1] = NULL;
 	  }
-	  
+
 	  res = tgetent(termbuf, term);
 	  if (orig) {
 	    putenv(orig);  /* ignore ENOMEM */
